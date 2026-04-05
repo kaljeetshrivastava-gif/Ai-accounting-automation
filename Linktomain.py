@@ -5,13 +5,19 @@ import spacy
 from collections import defaultdict
 import os #
 
-# Load English NLP model
+import os
+import subprocess
+import sys
+
+# English model ko force download karne ke liye
 try:
-    nlp = spacy.load("en_core_web_sm")
-except:
-    
-    os.system("python -m spacy download en_core_web_sm")
-    nlp = spacy.load("en_core_web_sm")
+    import en_core_web_sm
+    nlp = en_core_web_sm.load()
+except ImportError:
+    subprocess.check_call([sys.executable, "-m", "spacy", "download", "en_core_web_sm"])
+    import en_core_web_sm
+    nlp = en_core_web_sm.load()
+
 
 # Categories for balance sheet
 ASSET_KEYWORDS = ['cash', 'bank', 'inventory', 'property', 'asset', 'receivable']
