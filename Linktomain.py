@@ -3,12 +3,13 @@ from PIL import Image
 import re
 import spacy
 from collections import defaultdict
+import os #
 
 # Load English NLP model
 try:
     nlp = spacy.load("en_core_web_sm")
 except:
-    import os
+    
     os.system("python -m spacy download en_core_web_sm")
     nlp = spacy.load("en_core_web_sm")
 
